@@ -1,11 +1,13 @@
 package com.devseok.gas.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devseok.gas.R
 import com.devseok.gas.databinding.FragmentHomeBinding
+import com.devseok.gas.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -29,6 +31,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentHomeBinding.bind(view)
+
+        viewModel.avgAllPrice.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Log.d("test", "" + it)
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
 
     }
 }

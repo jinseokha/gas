@@ -11,3 +11,4 @@ import com.devseok.gas.BuildConfig
 
 const val API_KEY = BuildConfig.API_KEY
 const val BASE_URL = "http://www.opinet.co.kr/api/"
+const val SEARCH_TIME_DELAY = 500L

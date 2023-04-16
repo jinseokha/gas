@@ -37,6 +37,11 @@ class GasRepository @Inject constructor(
         return gasApi.getLowTop10(prodcd = prodcd, area = area)
     }
 
+    // 11. 상호로 주유소 검색
+    suspend fun getSearchByName(osnm: String) : Response<SearchByName> {
+        return gasApi.getSearchByName(osnm = osnm)
+    }
+
     // 18. 요소수 주유소 판매가격(지역별)
     suspend fun getUreaPrice(area: String) : Response<UreaPrice> {
         return gasApi.getUreaPrice(area = area)

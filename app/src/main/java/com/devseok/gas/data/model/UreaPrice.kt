@@ -1,7 +1,9 @@
 package com.devseok.gas.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class UreaPrice(
     @SerializedName("RESULT")
@@ -11,6 +13,7 @@ data class UreaPrice(
         @SerializedName("OIL")
         var oIL: List<OIL>
     ) {
+        @Parcelize
         data class OIL(
             @SerializedName("UNI_ID")
             var uNIID: String,
@@ -32,6 +35,6 @@ data class UreaPrice(
             var tRADEDT: String,
             @SerializedName("TRADE_TM")
             var tRADETM: String
-        )
+        ): Parcelable
     }
 }

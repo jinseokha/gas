@@ -32,10 +32,12 @@ class HomeViewModel @Inject constructor(
     val avgLastWeek: MutableLiveData<Resource<AvgSidoPrice>> = MutableLiveData()
     val lowTop10: MutableLiveData<Resource<LowTop10>> = MutableLiveData()
     val ureaPrice: MutableLiveData<Resource<UreaPrice>> = MutableLiveData()
+    val searchByName: MutableLiveData<Resource<SearchByName>> = MutableLiveData()
 
     val areaCode: MutableLiveData<Resource<AreaCode>> = MutableLiveData()
 
     var avgAllPriceResponse: AvgAllPrice? = null
+    var searchByNameResponse: SearchByName? = null
 
     init {
         getAvgAllPrice() // 1. 전국 주유소 평균가격
@@ -50,20 +52,42 @@ class HomeViewModel @Inject constructor(
         safeAreaCode()
     }
 
-    private fun getAvgSidoPrice(sido: String) = viewModelScope.launch {
+    fun getAvgSidoPrice(sido: String) = viewModelScope.launch {
         safeAvgSidoPrice(sido)
     }
 
-    private fun getAvgLastWeek(sido: String) = viewModelScope.launch {
+    fun getAvgLastWeek(sido: String) = viewModelScope.launch {
         safeAvgLastWeek(sido)
     }
 
-    private fun getLowTop10(prodcd: String, area: String) = viewModelScope.launch {
+    fun getLowTop10(prodcd: String, area: String) = viewModelScope.launch {
         safeLowTop10(prodcd, area)
     }
 
-    private fun getUreaPrice(area: String) = viewModelScope.launch {
+    fun getUreaPrice(area: String) = viewModelScope.launch {
         safeUreaPrice(area)
+    }
+
+    fun getSearchByName(osnm: String) = viewModelScope.launch {
+        safeSearchByName(osnm)
+    }
+
+    private suspend fun safeSearchByName(osnm: String) {
+        searchByName.postValue(Resource.Loading())
+
+        try {
+            if (hasInternetConnection(context)) {
+                val response = gasRepository.getSearchByName(osnm)
+                searchByName.postValue(handlerSearchByNameResponse(response))
+            } else {
+                searchByName.postValue(Resource.Error("No Internet Connection"))
+            }
+        } catch (ex: Exception) {
+            when(ex) {
+                is IOException -> searchByName.postValue(Resource.Error("Network Failure"))
+                else -> searchByName.postValue(Resource.Error("Conversion Error"))
+            }
+        }
     }
 
     private suspend fun safeUreaPrice(area: String) {
@@ -164,6 +188,19 @@ class HomeViewModel @Inject constructor(
                     avgAllPriceResponse = resultReponse
 
                 return Resource.Success(avgAllPriceResponse ?: resultReponse)
+            }
+        }
+
+        return Resource.Error(response.message())
+    }
+
+    private fun handlerSearchByNameResponse(response: Response<SearchByName>) : Resource<SearchByName> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                if (searchByNameResponse == null)
+                    searchByNameResponse = resultResponse
+
+                return Resource.Success(searchByNameResponse ?: resultResponse)
             }
         }
 

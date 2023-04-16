@@ -60,6 +60,14 @@ interface GasApi {
         @Query("sort") sort: String
     )*/
 
+    // 11. 상호로 주유소 검색
+    @GET("searchByName.do")
+    suspend fun getSearchByName(
+        @Query("code") apiKey: String = API_KEY,
+        @Query("out") out: String = "json",
+        @Query("osnm") osnm: String
+    ): Response<SearchByName>
+
     // 18. 요소수 주유소 판매가격(지역별)
     @GET("ureaPrice.do")
     suspend fun getUreaPrice(

@@ -1,5 +1,6 @@
 package com.devseok.gas.repository
 
+import com.devseok.gas.data.local.AreaCodeDao
 import com.devseok.gas.data.model.*
 import com.devseok.gas.data.remote.GasApi
 import retrofit2.Response
@@ -14,7 +15,8 @@ import javax.inject.Singleton
  */
 @Singleton
 class GasRepository @Inject constructor(
-    private val gasApi: GasApi
+    private val gasApi: GasApi,
+    private val areaCodeDao: AreaCodeDao
 ) {
 
     // 1. 전국 주유소 평균가격
@@ -51,4 +53,13 @@ class GasRepository @Inject constructor(
     suspend fun getAreaCode() : Response<AreaCode> {
         return gasApi.getAreaCode()
     }
+
+    fun getAllAreaCode() = areaCodeDao.getAreaCode()
+
+    suspend fun insertAreaCode(areaCode: AreaCode) = areaCodeDao.insert(areaCode)
+
+    suspend fun deleteAllAreaCode() = areaCodeDao.deleteAllAreaCode()
+
+
+
 }

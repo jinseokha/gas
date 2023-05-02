@@ -44,6 +44,8 @@ class HomeViewModel @Inject constructor(
         getAreaCode() // 19. 지역코드
     }
 
+    fun getAllAreaCode() = gasRepository.getAllAreaCode()
+
     private fun getAvgAllPrice() = viewModelScope.launch {
         safeAvgAllPrice()
     }

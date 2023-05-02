@@ -62,6 +62,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun initViewModels() {
+
+
         viewModel.avgAllPrice.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {

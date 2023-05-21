@@ -1,11 +1,13 @@
 package com.devseok.gas.data.model
 
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class AreaCode(
     @SerializedName("RESULT")
-    var rESULT: RESULT
+    var result: RESULT
 ) {
     data class RESULT(
         @SerializedName("OIL")

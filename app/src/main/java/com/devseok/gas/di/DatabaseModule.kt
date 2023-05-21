@@ -1,9 +1,5 @@
 package com.devseok.gas.di
 
-import android.app.Application
-import androidx.room.Room
-import com.devseok.gas.data.local.AreaCodeDao
-import com.devseok.gas.data.local.AreaCodeDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +17,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
 
-    @Provides
+    /*@Provides
     @Singleton
     fun provideDatabase(application: Application, callback: AreaCodeDatabase.Callback) : AreaCodeDatabase {
         return Room.databaseBuilder(application, AreaCodeDatabase::class.java, "areaCode_database")
@@ -33,5 +29,5 @@ class DatabaseModule {
     @Provides
     fun provideAreaCodeDao(db: AreaCodeDatabase): AreaCodeDao {
         return db.getAreaCodeDao()
-    }
+    }*/
 }

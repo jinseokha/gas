@@ -1,7 +1,6 @@
 package com.devseok.gas.di
 
 import com.devseok.gas.data.remote.GasApi
-import com.devseok.gas.util.API_KEY
 import com.devseok.gas.util.BASE_URL
 import dagger.Module
 import dagger.Provides

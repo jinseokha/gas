@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095692088869",
+    "project_id": "gasstation-cb42f",
+    "storage_bucket": "gasstation-cb42f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095692088869:android:ca416c136dbf06391ff1cc",
+        "android_client_info": {
+          "package_name": "com.devseok.gas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVK7_vEVlp2xRuBy7ushyW_cW9JeRv38E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

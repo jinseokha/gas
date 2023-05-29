@@ -63,12 +63,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initViewModels() {
 
-
-        viewModel.avgAllPrice.observe(viewLifecycleOwner) {
+        /** 상호로 주유소 검색 */
+        viewModel.searchByName.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    Log.d("test", "" + it)
-
+                    it.data?.let { response ->
+                        val intent = Intent(requireContext(), SearchActivity::class.java)
+                        intent.putExtra("searchByName", response)
+                        startActivity(intent)
+                    }
                 }
 
                 is Resource.Error -> {
@@ -81,15 +84,99 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        // 1. 검색
-        viewModel.searchByName.observe(viewLifecycleOwner) {
+        /** 전국 주유소 평균가격 */
+        viewModel.avgAllPrice.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    it.data?.let { response ->
-                        val intent = Intent(requireContext(), SearchActivity::class.java)
-                        intent.putExtra("searchByName", response)
-                        startActivity(intent)
-                    }
+                    Log.d("test", "" + it)
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
+
+        /** 시도별 주유소 평균가격 */
+        viewModel.avgSidoPrice.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Log.d("test", "" + it)
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
+
+        /** 반경 내 주유소 검색 (추가필요) */
+
+        /** 지역별 최저가 주유소 */
+        viewModel.lowTop10.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Log.d("test", "" + it)
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
+
+        /** 최근 1주의 주간 평균유가(전국/시도별) */
+        viewModel.avgLastWeek.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Log.d("test", "" + it)
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
+
+        /** 요소수 주유소 판매가격(지역별) */
+        viewModel.ureaPrice.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Log.d("test", "" + it)
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
+
+        /** 지역코드 */
+        viewModel.areaCode.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Log.d("test", "" + it)
+
                 }
 
                 is Resource.Error -> {

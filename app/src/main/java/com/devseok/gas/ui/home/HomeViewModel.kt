@@ -45,30 +45,37 @@ class HomeViewModel @Inject constructor(
     }
 
 
+    /** 전국 주유소 평균가격 */
     private fun getAvgAllPrice() = viewModelScope.launch {
         safeAvgAllPrice()
     }
 
+    /** 지역코드 */
     private fun getAreaCode() = viewModelScope.launch {
         safeAreaCode()
     }
 
+    /** 시도별 주유소 평균가격 */
     fun getAvgSidoPrice(sido: String) = viewModelScope.launch {
         safeAvgSidoPrice(sido)
     }
 
+    /** 최근 1주의 주간 평균유가(전국/시도별) */
     fun getAvgLastWeek(sido: String) = viewModelScope.launch {
         safeAvgLastWeek(sido)
     }
 
+    /** 지역별 최저가 주유소 */
     fun getLowTop10(prodcd: String, area: String) = viewModelScope.launch {
         safeLowTop10(prodcd, area)
     }
 
+    /** 요소수 주유소 판매가격(지역별) */
     fun getUreaPrice(area: String) = viewModelScope.launch {
         safeUreaPrice(area)
     }
 
+    /** 상호로 주유소 검색 */
     fun getSearchByName(osnm: String) = viewModelScope.launch {
         safeSearchByName(osnm)
     }

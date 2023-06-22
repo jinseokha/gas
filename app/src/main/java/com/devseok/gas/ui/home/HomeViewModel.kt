@@ -1,6 +1,7 @@
 package com.devseok.gas.ui.home
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -39,11 +40,17 @@ class HomeViewModel @Inject constructor(
     var avgAllPriceResponse: AvgAllPrice? = null
     var searchByNameResponse: SearchByName? = null
 
+
+
     init {
         getAvgAllPrice() // 1. 전국 주유소 평균가격
         getAreaCode() // 19. 지역코드
     }
 
+    // 현재 위치 받아오기
+    //fun getLocation()
+
+    fun getAreaDBCode() = gasRepository.getAllAreaCode()
 
     /** 전국 주유소 평균가격 */
     private fun getAvgAllPrice() = viewModelScope.launch {
@@ -160,6 +167,12 @@ class HomeViewModel @Inject constructor(
             if (hasInternetConnection(context)) {
                 val response = gasRepository.getAreaCode()
                 // TODO : 내부 데이터 저장용 (RoomDB)
+                Log.d("testtest", "" + response.body()!!.result.oIL)
+
+                viewModelScope.launch {
+                    var areaDBCode = AreaDBCode(1, response.body()!!.result.oIL)
+                    gasRepository.insertAreaCode(areaDBCode)
+                }
 
             }
         } catch (e: Exception) {

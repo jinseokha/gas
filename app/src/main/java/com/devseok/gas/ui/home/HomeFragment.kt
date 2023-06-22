@@ -36,11 +36,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     var isLastPage = false
     var isScrolling = false
 
+    lateinit var binding : FragmentHomeBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentHomeBinding.bind(view)
-
+        binding = FragmentHomeBinding.bind(view)
 
         var job: Job? = null
         binding.apply {
@@ -62,6 +63,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun initViewModels() {
+
+        viewModel.getAreaDBCode().observe(viewLifecycleOwner) {
+            // 지역 코드
+            Log.d("test", "" + it[0].oIL)
+        }
 
         /** 상호로 주유소 검색 */
         viewModel.searchByName.observe(viewLifecycleOwner) {
@@ -88,15 +94,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.avgAllPrice.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    Log.d("test", "" + it)
+                    // oil index 정보
+                    // 0: 고급휘발유
+                    // 1: 휘발유
+                    // 2: 자동차용 경유
+                    // 3: 실내등유
+                    // 4: 자동차용 부탄
+                    binding.tvAvgAllPrice.text = it.data!!.rESULT.oIL[1].pRICE + "원"
                 }
 
                 is Resource.Error -> {
-                    Log.d("test", "" + "error")
+                    Log.d("testtest", "" + "error")
                 }
 
                 is Resource.Loading -> {
-                    Log.d("test", "" + "loading")
+                    Log.d("testtest", "" + "loading")
                 }
             }
         }

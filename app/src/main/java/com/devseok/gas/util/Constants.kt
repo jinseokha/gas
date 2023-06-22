@@ -1,7 +1,5 @@
 package com.devseok.gas.util
 
-import com.devseok.gas.BuildConfig
-
 /**
  * @auth Dev Seok
  * @email seok270@gmail.com

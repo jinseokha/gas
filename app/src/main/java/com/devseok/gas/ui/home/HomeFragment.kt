@@ -66,7 +66,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.getAreaDBCode().observe(viewLifecycleOwner) {
             // 지역 코드
-            Log.d("test", "" + it[0].oIL)
+            if (it != null) {
+                Log.d("test", "" + it[0].oIL)
+            }
         }
 
         /** 상호로 주유소 검색 */

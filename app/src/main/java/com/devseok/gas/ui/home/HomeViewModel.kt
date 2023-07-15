@@ -44,6 +44,8 @@ class HomeViewModel @Inject constructor(
 
     init {
         getAvgAllPrice() // 1. 전국 주유소 평균가격
+
+        /** TODO : getAreaDBCode() 가 존재하면 getAreaCode() 실행 X */
         getAreaCode() // 19. 지역코드
     }
 

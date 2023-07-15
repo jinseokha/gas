@@ -1,18 +1,25 @@
 package com.devseok.gas.ui
 
 import android.Manifest
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.view.animation.AnticipateInterpolator
 import android.widget.Toast
+import androidx.core.animation.doOnEnd
 import androidx.core.app.ActivityCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.devseok.gas.databinding.ActivityMainBinding
 import com.devseok.gas.databinding.ActivitySplashBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -31,22 +38,31 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 일정 시간 지연 이후 실행하기 위한 코드
-        Handler(Looper.getMainLooper()).postDelayed({
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            splashScreen.setOnExitAnimationListener {splashScreenView ->
+                val animScaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 8f)
+                val animScaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 8f)
+                val animAlpha = PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 0f)
 
-            // 일정 시간이 지나면 MainActivity로 이동
-            val intent= Intent( this, MainActivity::class.java)
-            startActivity(intent)
+                ObjectAnimator.ofPropertyValuesHolder(
+                    splashScreenView.iconView,
+                    animAlpha,
+                    animScaleX,
+                    animScaleY
+                ).run {
+                    interpolator = AnticipateInterpolator()
+                    duration = 300L
+                    doOnEnd { splashScreenView.remove() }
+                    start()
+                }
 
-            // 이전 키를 눌렀을 때 스플래스 스크린 화면으로 이동을 방지하기 위해
-            // 이동한 다음 사용안함으로 finish 처리
-            finish()
-
-        }, 500) // 시간 0.5초 이후 실행
+            }
+        }
 
         //등록
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -75,6 +91,34 @@ class SplashActivity : AppCompatActivity() {
                             Log.i("TAG", "I can't work for you anymore then. ByeBye!")
                         } else {
                             //gpsGranted = true
+                            if (ActivityCompat.checkSelfPermission(
+                                    this,
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                                    this,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {
+                                login()
+                                return
+                            } else {
+                                fusedLocationClient.lastLocation
+                                    .addOnSuccessListener { location: Location? ->
+                                        // Got last known location. In some rare situations this can be null.
+                                        var geocoder = Geocoder(this, Locale.KOREA)
+                                        if (location != null) {
+                                            /*Toast.makeText(
+                                                this,
+                                                "현재위치..." + location.latitude + " / " + location.longitude,
+                                                Toast.LENGTH_SHORT
+                                            ).show()*/
+
+                                            login()
+                                        }
+                                    }
+                            }
+
+
                         }
                     }
                 }
@@ -98,17 +142,32 @@ class SplashActivity : AppCompatActivity() {
                     // Got last known location. In some rare situations this can be null.
                     var geocoder = Geocoder(this, Locale.KOREA)
                     if (location != null) {
-                        Toast.makeText(
+                        /*Toast.makeText(
                             this,
                             "현재위치..." + location.latitude + " / " + location.longitude,
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
 
+                        login()
                     }
                 }
         } else {
-            Toast.makeText(this, "위치권한이 없습니다..", Toast.LENGTH_SHORT).show()
 
+            var permission = ArrayList<String>()
+
+            permission.add(Manifest.permission.ACCESS_FINE_LOCATION)
+            permission.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+
+            var mPermission = permission.toArray(arrayOfNulls<String>(0))
+
+            ActivityCompat.requestPermissions(this, mPermission, multiplePermissionsCode)
         }
+    }
+
+    private fun login() {
+        val intent= Intent( this, MainActivity::class.java)
+        startActivity(intent)
+
+        finish()
     }
 }

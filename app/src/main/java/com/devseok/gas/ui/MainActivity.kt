@@ -6,8 +6,10 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.os.Process
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.NavHostFragment
@@ -42,6 +44,20 @@ class MainActivity : AppCompatActivity() {
         checkLocationPermission()
     }
 
+    override fun onBackPressed() {
+
+        AlertDialog.Builder(this)
+            .setTitle("안내")
+            .setMessage("앱을 종료하시겠습니까?")
+            .setPositiveButton(
+                "종료"
+            ) { dialog, which -> // 프로세스 종료.
+                moveTaskToBack(true)
+                finish()
+                Process.killProcess(Process.myPid())
+            }.setNegativeButton("취소", null).show()
+    }
+
     //퍼미션 체크 및 권한 요청 함수
     @SuppressLint("MissingPermission")
     private fun checkLocationPermission() {
@@ -59,14 +75,13 @@ class MainActivity : AppCompatActivity() {
 
                     var geocoder = Geocoder(this, Locale.KOREA)
                     if (location != null) {
-                        Toast.makeText(
+                        /*Toast.makeText(
                             this,
                             "현재위치..." + location.latitude + " / " + location.longitude,
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
 
-                        val addrList =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val addrList = geocoder.getFromLocation(location.latitude, location.longitude, 1)
 
                         if (addrList != null) {
                             for (addr in addrList) {

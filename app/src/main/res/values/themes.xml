@@ -18,6 +18,15 @@
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
+
+        <!-- Splash -->
+
+    </style>
+
+    <style name="Theme.Gas.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.Gas</item>
     </style>
 
     <!-- Custom font 적용 -->

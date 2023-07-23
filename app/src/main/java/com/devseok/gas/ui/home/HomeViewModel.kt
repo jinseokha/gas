@@ -29,18 +29,10 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val avgAllPrice: MutableLiveData<Resource<AvgAllPrice>> = MutableLiveData()
-    val avgSidoPrice: MutableLiveData<Resource<AvgSidoPrice>> = MutableLiveData()
-    val avgLastWeek: MutableLiveData<Resource<AvgSidoPrice>> = MutableLiveData()
-    val lowTop10: MutableLiveData<Resource<LowTop10>> = MutableLiveData()
-    val ureaPrice: MutableLiveData<Resource<UreaPrice>> = MutableLiveData()
-    val searchByName: MutableLiveData<Resource<SearchByName>> = MutableLiveData()
-
     val areaCode: MutableLiveData<Resource<AreaCode>> = MutableLiveData()
 
     var avgAllPriceResponse: AvgAllPrice? = null
     var searchByNameResponse: SearchByName? = null
-
-
 
     init {
         getAvgAllPrice() // 1. 전국 주유소 평균가격
@@ -48,9 +40,6 @@ class HomeViewModel @Inject constructor(
         /** TODO : getAreaDBCode() 가 존재하면 getAreaCode() 실행 X */
         getAreaCode() // 19. 지역코드
     }
-
-    // 현재 위치 받아오기
-    //fun getLocation()
 
     fun getAreaDBCode() = gasRepository.getAllAreaCode()
 
@@ -62,106 +51,6 @@ class HomeViewModel @Inject constructor(
     /** 지역코드 */
     private fun getAreaCode() = viewModelScope.launch {
         safeAreaCode()
-    }
-
-    /** 시도별 주유소 평균가격 */
-    fun getAvgSidoPrice(sido: String) = viewModelScope.launch {
-        safeAvgSidoPrice(sido)
-    }
-
-    /** 최근 1주의 주간 평균유가(전국/시도별) */
-    fun getAvgLastWeek(sido: String) = viewModelScope.launch {
-        safeAvgLastWeek(sido)
-    }
-
-    /** 지역별 최저가 주유소 */
-    fun getLowTop10(prodcd: String, area: String) = viewModelScope.launch {
-        safeLowTop10(prodcd, area)
-    }
-
-    /** 요소수 주유소 판매가격(지역별) */
-    fun getUreaPrice(area: String) = viewModelScope.launch {
-        safeUreaPrice(area)
-    }
-
-    /** 상호로 주유소 검색 */
-    fun getSearchByName(osnm: String) = viewModelScope.launch {
-        safeSearchByName(osnm)
-    }
-
-    private suspend fun safeSearchByName(osnm: String) {
-        searchByName.postValue(Resource.Loading())
-
-        try {
-            if (hasInternetConnection(context)) {
-                val response = gasRepository.getSearchByName(osnm)
-                searchByName.postValue(handlerSearchByNameResponse(response))
-            } else {
-                searchByName.postValue(Resource.Error("No Internet Connection"))
-            }
-        } catch (ex: Exception) {
-            when(ex) {
-                is IOException -> searchByName.postValue(Resource.Error("Network Failure"))
-                else -> searchByName.postValue(Resource.Error("Conversion Error"))
-            }
-        }
-    }
-
-    private suspend fun safeUreaPrice(area: String) {
-        try {
-            if (hasInternetConnection(context)) {
-                val response = gasRepository.getUreaPrice(area)
-                // TODO : UI 작업 필요
-
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is IOException -> ureaPrice.postValue(Resource.Error("Network Failure"))
-                else -> ureaPrice.postValue(Resource.Error("Conversion Error"))
-            }
-        }
-    }
-
-    private suspend fun safeLowTop10(prodcd: String, area: String) {
-        try {
-            if (hasInternetConnection(context)) {
-                val response = gasRepository.getLowTop10(prodcd, area)
-                // TODO : UI 작업 필요
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is IOException -> lowTop10.postValue(Resource.Error("Network Failure"))
-                else -> lowTop10.postValue(Resource.Error("Conversion Error"))
-            }
-        }
-    }
-
-    private suspend fun safeAvgLastWeek(sido: String) {
-        try {
-            if (hasInternetConnection(context)) {
-                val reponse = gasRepository.getAvgLastWeek(sido)
-                // TODO : UI 작업 필요
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is IOException -> avgLastWeek.postValue(Resource.Error("Network Failure"))
-                else -> avgLastWeek.postValue(Resource.Error("Conversion Error"))
-            }
-        }
-    }
-
-    private suspend fun safeAvgSidoPrice(sido: String) {
-        try {
-            if (hasInternetConnection(context)) {
-                val reponse = gasRepository.getAvgSidoPrice(sido)
-                // TODO : UI 작업 필요
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is IOException -> avgSidoPrice.postValue(Resource.Error("Network Failure"))
-                else -> avgSidoPrice.postValue(Resource.Error("Conversion Error"))
-            }
-        }
     }
 
     private suspend fun safeAreaCode() {

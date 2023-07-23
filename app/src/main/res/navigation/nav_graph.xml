@@ -8,16 +8,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.devseok.gas.ui.home.HomeFragment"
-        android:label="fragment_calendar"
+        android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.devseok.gas.ui.map.MapFragment"
-        android:label="fragment_dash_board"
+        android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.devseok.gas.ui.bookmark.BookMarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark"/>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.devseok.gas.ui.setting.SettingFragment"
-        android:label="fragment_delivery_apply"
+        android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>

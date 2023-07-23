@@ -1,295 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/adView"
         android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/edtSearch"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:hint="검색어를 입력하세요."
-            android:maxLines="1"
-            android:background="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center">
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="현재위치 : "/>
 
-                android:text="광고"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                tools:text="대구광역시 북구"/>
+
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#d9d9d9"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#ffffff">
+            <!-- 최저가, 거리, 이름, 상표-->
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-                <LinearLayout
-                    android:id="@+id/layout_avgAllPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_avgAllPriceTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="전국 주유소 평균가격"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+            <!-- 1km, 2km, 3km, 5km -->
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-                    <TextView
-                        android:id="@+id/tv_avgAllPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:text="1.498원"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                app:strokeWidth="1dp"
-                app:strokeColor="#d9d9d9"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#ffffff">
-
-                <LinearLayout
-                    android:id="@+id/layout_avgSidoPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_avgSidoPriceTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="시도별 주유소 평균가격"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_avgSidoPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:text="1.498원"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <!-- 휘발유, 경유, 고급휘발유, 등유, LPG-->
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#d9d9d9"
-            app:cardCornerRadius="15dp"
-            app:cardBackgroundColor="#ffffff">
+            android:layout_height="match_parent" />
 
-            <LinearLayout
-                android:id="@+id/layout_aroundAll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_aroundAllTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="반경 내 주유소 검색"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_aroundAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    tools:text="texttext"/>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                app:strokeWidth="1dp"
-                app:strokeColor="#d9d9d9"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#ffffff">
-
-                <LinearLayout
-                    android:id="@+id/layout_lowTop10"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_lowTop10Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="전국/지역별 최저가 주유소"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_lowTop10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="right"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:text="1.498원"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                app:strokeWidth="1dp"
-                app:strokeColor="#d9d9d9"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#ffffff">
-
-
-                <LinearLayout
-                    android:id="@+id/layout_avgLastWeek"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_avgLastWeekTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="최근 1주의 주간 평균가격"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_avgLastWeek"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="right"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:text="1.498원"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#d9d9d9"
-            app:cardCornerRadius="15dp"
-            app:cardBackgroundColor="#ffffff">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_ureaPriceTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="요소수 주유소 판매가격(지역별)"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_ureaPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="right"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:text="1.498원"/>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="광고"/>
+
+</RelativeLayout>

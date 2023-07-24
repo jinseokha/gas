@@ -39,6 +39,11 @@ class GasRepository @Inject constructor(
         return gasApi.getLowTop10(prodcd = prodcd, area = area)
     }
 
+    // 반경내 주유소
+    suspend fun getAroundAll(x: String, y: String, radius: String, prodcd: String, sort: String) : Response<AroundAll> {
+        return gasApi.getAroundAll(x = x, y = y, radius = radius, prodcd = prodcd, sort = sort)
+    }
+
     // 11. 상호로 주유소 검색
     suspend fun getSearchByName(osnm: String) : Response<SearchByName> {
         return gasApi.getSearchByName(osnm = osnm)

@@ -48,16 +48,16 @@ interface GasApi {
 
     // TODO : 지도 테스트하면서 Model 추가 필요
     // 9. 반경내 주유소
-    /*@GET("aroundAll.do")
+    @GET("aroundAll.do")
     suspend fun getAroundAll(
-        @Query("code") apiKey: String = API_KEY,
+        @Query("code") apiKey: String = "F221115417",
         @Query("out") out: String = "json",
         @Query("x") x: String,
         @Query("y") y: String,
         @Query("radius") radius: String,
-        @Query("prodcd") prodcd: String = "B027",
+        @Query("prodcd") prodcd: String,
         @Query("sort") sort: String
-    )*/
+    ): Response<AroundAll>
 
     // 11. 상호로 주유소 검색
     @GET("searchByName.do")

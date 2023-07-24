@@ -9,7 +9,12 @@
     <item android:id="@+id/mapFragment"
         android:title="지도"
         android:enabled="true"
-        android:icon="@drawable/baseline_search_24" />
+        android:icon="@drawable/baseline_map_24" />
+
+    <item android:id="@+id/bookmarkFragment"
+        android:title="즐겨찾기"
+        android:enabled="true"
+        android:icon="@drawable/baseline_bookmark_24" />
 
     <item android:id="@+id/settingFragment"
         android:title="설정"

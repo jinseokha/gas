@@ -27,6 +27,7 @@
                 android:text="현재위치 : "/>
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -40,23 +41,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- 최저가, 거리, 이름, 상표-->
+            <!-- 가격순(1), 거리순(2)-->
             <Spinner
+                android:id="@+id/spinner_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:overlapAnchor="false"/>
 
             <!-- 1km, 2km, 3km, 5km -->
             <Spinner
+                android:id="@+id/spinner_radius"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:overlapAnchor="false"/>
 
-            <!-- 휘발유, 경유, 고급휘발유, 등유, LPG-->
+            <!-- 휘발유(B027), 경유(D047), 고급휘발유(B034), 등유(C004), 부탄(LPG)(K015)-->
             <Spinner
+                android:id="@+id/spinner_prodcd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:overlapAnchor="false"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

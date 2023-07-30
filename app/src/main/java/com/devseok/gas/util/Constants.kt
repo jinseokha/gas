@@ -8,4 +8,5 @@ package com.devseok.gas.util
  */
 
 const val BASE_URL = "http://www.opinet.co.kr/api/"
+const val KAKAO_BASE_URL = "https://dapi.kakao.com/"
 const val SEARCH_TIME_DELAY = 500L

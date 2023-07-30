@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devseok.gas.data.model.*
 import com.devseok.gas.repository.GasRepository
+import com.devseok.gas.repository.KakaoRepository
 import com.devseok.gas.util.NetworkUtil.Companion.hasInternetConnection
 import com.devseok.gas.util.Resource
+import com.devseok.gas.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -57,9 +59,12 @@ class HomeViewModel @Inject constructor(
     }
 
     /** 반경 내 주유소 검색 */
-    // TODO : 좌표 KATEC 방법 모색
-    fun getAroundAll(x: String, y: String, radius: String, prodcd: String, sort: String) = viewModelScope.launch {
-        safeAroundAll(x, y, radius, prodcd, sort)
+    fun getAroundAll(x: Double, y: Double, radius: String, prodcd: String, sort: String) = viewModelScope.launch {
+
+        var isEnd = KakaoRepository.getKATEXconvert(x, y)
+
+        if (isEnd)
+         safeAroundAll(Utils.latKATECx.toString(), Utils.lonKATECy.toString(), radius, prodcd, sort)
         //safeAroundAll(x, y, radius, prodcd, sort)
 
     }

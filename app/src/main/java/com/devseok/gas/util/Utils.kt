@@ -1,5 +1,8 @@
 package com.devseok.gas.util
 
+import android.graphics.drawable.Drawable
+import com.devseok.gas.R
+
 /**
  * @author Ha Jin Seok
  * @created 2023-07-24
@@ -10,11 +13,22 @@ object Utils {
     var latitude : Double = 0.0
     var longitude : Double = 0.0
 
-    fun getLatitude(lat : Double) : Double {
-        return 320000 + (lat - 126) * 3000
-    }
+    var latKATECx : Double? = 0.0
+    var lonKATECy : Double? = 0.0
 
-    fun getLongitude(lot : Double) : Double {
-        return 550000 + (lot - 38) * 3700
+
+    fun pollConvert(brand: String) : Int {
+        return when(brand) {
+            "SKE", "SKG" -> R.drawable.pole_1 // SK
+            "GSC" -> R.drawable.pole_2 // GS
+            "HDO" -> R.drawable.pole_3 // 현대오일뱅크
+            "SOL" -> R.drawable.pole_4 // S-OIL
+            "RTO" -> R.drawable.pole_6 // 자영알뜰
+            "RTX" -> R.drawable.pole_6 // 고속도로알뜰
+            "NHO" -> R.drawable.pole_5 // 농협알뜰
+            "ETC" -> R.drawable.pole_all // 자가상표
+            "E1G" -> R.drawable.pole_7 // E1
+            else -> R.drawable.pole_all
+        }
     }
 }

@@ -79,22 +79,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
 
-        var job: Job? = null
-        binding.apply {
-            /*edtSearch.addTextChangedListener { editable: Editable? ->
-                job?.cancel()
-                job = MainScope().launch {
-                    delay(SEARCH_TIME_DELAY)
-                    editable?.let {
-                        if (editable.toString().isNotEmpty()) {
-                            viewModel.getSearchByName(editable.toString())
-                        }
-                    }
-                }
-
-            }*/
-        }
-
         initViewModels()
 
         checkLocationPermission()
@@ -181,7 +165,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "SetTextI18n")
     private fun checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -212,8 +196,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                         binding.tvAddress.text = "${address[1]} ${address[2]} ${address[3]} ${address[4]} ${address[5]}"
 
-
-                        viewModel.getAroundAll(Utils.getLatitude(Utils.latitude).toString(), Utils.getLongitude(Utils.longitude).toString(), radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
+                        viewModel.getAroundAll(Utils.latitude, Utils.longitude, radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
                     }
                 }
         }
@@ -261,7 +244,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val value = binding.spinnerSort.getItemAtPosition(position) as Sort
                 sortValue= value
 
-                viewModel.getAroundAll(Utils.getLatitude(Utils.latitude).toString(), Utils.getLongitude(Utils.longitude).toString(), radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
+                viewModel.getAroundAll(Utils.latitude, Utils.longitude, radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -274,7 +257,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val value = binding.spinnerRadius.getItemAtPosition(position) as Radius
                 radiusValue = value
 
-                viewModel.getAroundAll(Utils.getLatitude(Utils.latitude).toString(), Utils.getLongitude(Utils.longitude).toString(), radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
+                viewModel.getAroundAll(Utils.latitude, Utils.longitude, radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -287,7 +270,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val value = binding.spinnerProdcd.getItemAtPosition(position) as Prodcd
                 prodcdValue = value
 
-                viewModel.getAroundAll(Utils.getLatitude(Utils.latitude).toString(), Utils.getLongitude(Utils.longitude).toString(), radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
+                viewModel.getAroundAll(Utils.latitude, Utils.longitude, radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

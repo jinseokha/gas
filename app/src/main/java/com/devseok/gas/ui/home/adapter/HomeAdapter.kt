@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devseok.gas.R
 import com.devseok.gas.data.model.AroundAll
 import com.devseok.gas.databinding.ItemHomeBinding
+import com.devseok.gas.util.Utils
 
 /**
  * @author Ha Jin Seok
@@ -41,6 +42,8 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
         fun bind(data : AroundAll.RESULT.OIL) {
             binding.txtTitle.text = data.OS_NM
+            binding.imgBrand.setBackgroundResource(Utils.pollConvert(data.POLL_DIV_CD))
+
         }
     }
 }

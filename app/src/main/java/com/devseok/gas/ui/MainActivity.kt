@@ -1,26 +1,15 @@
 package com.devseok.gas.ui
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.os.Process
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.devseok.gas.R
 import com.devseok.gas.databinding.ActivityMainBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

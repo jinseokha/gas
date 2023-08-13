@@ -2,47 +2,33 @@ package com.devseok.gas.ui.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devseok.gas.R
+import com.devseok.gas.data.model.AroundAll
+import com.devseok.gas.data.model.DetailById
 import com.devseok.gas.data.model.Prodcd
 import com.devseok.gas.data.model.Radius
 import com.devseok.gas.data.model.Sort
 import com.devseok.gas.databinding.FragmentHomeBinding
-import com.devseok.gas.ui.SearchActivity
 import com.devseok.gas.ui.home.adapter.HomeAdapter
 import com.devseok.gas.ui.home.adapter.ProdcdAdapter
 import com.devseok.gas.ui.home.adapter.RadiusAdapter
 import com.devseok.gas.ui.home.adapter.SortAdapter
 import com.devseok.gas.util.Resource
-import com.devseok.gas.util.SEARCH_TIME_DELAY
 import com.devseok.gas.util.Utils
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONObject
 import java.util.Locale
 
 /**
@@ -149,8 +135,42 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.resultData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    Log.d("test", "" + it)
+                    var oILList = it.data?.result?.oIL
+
+
+                    if (oILList!!.isNotEmpty()) {
+
+                        for (oIL in oILList) {
+                            viewModel.getDetailById(oIL.UNI_ID)
+                        }
+                    }
+
                     homeAdapter.setResultData(it.data?.result?.oIL)
+                    homeAdapter.notifyDataSetChanged()
+                }
+
+                is Resource.Error -> {
+                    Log.d("test", "" + "error")
+                }
+
+                is Resource.Loading -> {
+                    Log.d("test", "" + "loading")
+                }
+            }
+        }
+
+        viewModel.detailById.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Success -> {
+                    var oILList = homeAdapter.getResultData()
+
+                    for (oIL in oILList!!) {
+                        if (oIL.UNI_ID == it.data?.result?.oIL!![0].UNI_ID) {
+                            oIL.detailById = it.data as DetailById
+                        }
+                    }
+
+                    homeAdapter.setResultData(oILList)
                     homeAdapter.notifyDataSetChanged()
                 }
 
@@ -281,7 +301,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initAdapter() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        homeAdapter = HomeAdapter()
+        homeAdapter = HomeAdapter(requireContext())
         binding.recyclerView.adapter = homeAdapter
     }
 

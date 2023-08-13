@@ -1,7 +1,16 @@
 package com.devseok.gas.repository
 
 import com.devseok.gas.data.local.AreaDBDao
-import com.devseok.gas.data.model.*
+import com.devseok.gas.data.model.AreaCode
+import com.devseok.gas.data.model.AreaDBCode
+import com.devseok.gas.data.model.AroundAll
+import com.devseok.gas.data.model.AvgAllPrice
+import com.devseok.gas.data.model.AvgLastWeek
+import com.devseok.gas.data.model.AvgSidoPrice
+import com.devseok.gas.data.model.DetailById
+import com.devseok.gas.data.model.LowTop10
+import com.devseok.gas.data.model.SearchByName
+import com.devseok.gas.data.model.UreaPrice
 import com.devseok.gas.data.remote.GasApi
 import retrofit2.Response
 import javax.inject.Inject
@@ -42,6 +51,10 @@ class GasRepository @Inject constructor(
     // 반경내 주유소
     suspend fun getAroundAll(x: String, y: String, radius: String, prodcd: String, sort: String) : Response<AroundAll> {
         return gasApi.getAroundAll(x = x, y = y, radius = radius, prodcd = prodcd, sort = sort)
+    }
+
+    suspend fun getDetailById(id: String) : Response<DetailById> {
+        return gasApi.getDetailById(id = id)
     }
 
     // 11. 상호로 주유소 검색

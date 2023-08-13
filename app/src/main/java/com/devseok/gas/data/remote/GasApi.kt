@@ -59,6 +59,14 @@ interface GasApi {
         @Query("sort") sort: String
     ): Response<AroundAll>
 
+    // 10. 주유소 상세정보(ID)
+    @GET("detailById.do")
+    suspend fun getDetailById(
+        @Query("code") apiKey: String = "F221115417",
+        @Query("out") out: String = "json",
+        @Query("id") id: String
+    ): Response<DetailById>
+
     // 11. 상호로 주유소 검색
     @GET("searchByName.do")
     suspend fun getSearchByName(

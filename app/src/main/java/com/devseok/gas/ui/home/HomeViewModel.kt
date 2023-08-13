@@ -5,7 +5,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devseok.gas.data.model.*
+import com.devseok.gas.data.model.AreaCode
+import com.devseok.gas.data.model.AreaDBCode
+import com.devseok.gas.data.model.AroundAll
+import com.devseok.gas.data.model.AvgAllPrice
+import com.devseok.gas.data.model.DetailById
+import com.devseok.gas.data.model.SearchByName
 import com.devseok.gas.repository.GasRepository
 import com.devseok.gas.repository.KakaoRepository
 import com.devseok.gas.util.NetworkUtil.Companion.hasInternetConnection
@@ -31,13 +36,14 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     var resultData : MutableLiveData<Resource<AroundAll>> = MutableLiveData()
-
     val avgAllPrice: MutableLiveData<Resource<AvgAllPrice>> = MutableLiveData()
     val areaCode: MutableLiveData<Resource<AreaCode>> = MutableLiveData()
+    val detailById: MutableLiveData<Resource<DetailById>> = MutableLiveData()
 
     var aroundAllResponse: AroundAll? = null
     var avgAllPriceResponse: AvgAllPrice? = null
     var searchByNameResponse: SearchByName? = null
+    var detailByIdResponse: DetailById? = null
 
     init {
         getAvgAllPrice() // 1. 전국 주유소 평균가격
@@ -85,12 +91,29 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getDetailById(id: String) = viewModelScope.launch {
+        safeDetailById(id)
+    }
+
+    private suspend fun safeDetailById(id: String) = viewModelScope.launch {
+        try {
+            if (hasInternetConnection(context)) {
+                val response = gasRepository.getDetailById(id)
+                Log.d("testtest", "" + response.body()!!.result)
+                detailById.postValue(handlerDetailByIdResponse(response))
+            }
+        } catch (e: Exception) {
+            when (e) {
+                is IOException -> detailById.postValue(Resource.Error("Network Failure"))
+                else -> detailById.postValue(Resource.Error("Conversion Error"))
+            }
+        }
+    }
+
     private suspend fun safeAreaCode() {
         try {
             if (hasInternetConnection(context)) {
                 val response = gasRepository.getAreaCode()
-                // TODO : 내부 데이터 저장용 (RoomDB)
-                Log.d("testtest", "" + response.body()!!.result.oIL)
 
                 viewModelScope.launch {
                     var areaDBCode = AreaDBCode(1, response.body()!!.result.oIL)
@@ -123,6 +146,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun handlerDetailByIdResponse(response: Response<DetailById>) : Resource<DetailById> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+
+                detailByIdResponse = resultResponse
+                return Resource.Success(detailByIdResponse ?: resultResponse)
+            }
+        }
+
+        return Resource.Error(response.message())
+    }
+
     private fun handlerAroundAllResponse(response: Response<AroundAll>) : Resource<AroundAll> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
@@ -138,7 +173,7 @@ class HomeViewModel @Inject constructor(
 
     private fun handlerAvgAllPriceResponse(response: Response<AvgAllPrice>) : Resource<AvgAllPrice> {
         if (response.isSuccessful) {
-            response.body()?.let { resultReponse ->
+            response.body()?.let { resultReponse ->33333333333
                 if (avgAllPriceResponse == null)
                     avgAllPriceResponse = resultReponse
 

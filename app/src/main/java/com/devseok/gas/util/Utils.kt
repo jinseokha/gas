@@ -1,6 +1,5 @@
 package com.devseok.gas.util
 
-import android.graphics.drawable.Drawable
 import com.devseok.gas.R
 
 /**

@@ -2,12 +2,9 @@ package com.devseok.gas.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.devseok.gas.data.model.AreaCode
 import com.devseok.gas.data.model.AreaDBCode
 import com.devseok.gas.di.ApplicationScope
-import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 import javax.inject.Provider

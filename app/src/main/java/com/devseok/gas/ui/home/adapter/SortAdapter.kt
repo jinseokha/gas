@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import androidx.annotation.LayoutRes
 import com.devseok.gas.data.model.Sort
 import com.devseok.gas.databinding.ItemSpinnerBinding
-import java.lang.Exception
 
 /**
  * @author Ha Jin Seok

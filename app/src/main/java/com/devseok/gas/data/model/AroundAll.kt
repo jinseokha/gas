@@ -24,7 +24,8 @@ data class AroundAll(
             @SerializedName("PRICE")
             val PRICE: Int,
             @SerializedName("UNI_ID")
-            val UNI_ID: String
+            val UNI_ID: String,
+            var detailById: DetailById?
         )
     }
 }

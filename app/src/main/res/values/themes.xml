@@ -49,4 +49,8 @@
     <style name="customCheckboxFontStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
         <item name="android:fontFamily">@font/sans_light</item>
     </style>
+
+    <style name="ToolbarColoredBackArrow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 </resources>

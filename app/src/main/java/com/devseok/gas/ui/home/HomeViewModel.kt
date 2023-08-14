@@ -72,7 +72,6 @@ class HomeViewModel @Inject constructor(
         if (isEnd)
          safeAroundAll(Utils.latKATECx.toString(), Utils.lonKATECy.toString(), radius, prodcd, sort)
         //safeAroundAll(x, y, radius, prodcd, sort)
-
     }
 
     private suspend fun safeAroundAll(x: String, y: String, radius: String, prodcd: String, sort: String) {

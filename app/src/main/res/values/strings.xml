@@ -2,4 +2,5 @@
     <string name="app_name">gas</string>
 
     <string name="app_home">홈</string>
+    <string name="app_detail">상세정보</string>
 </resources>

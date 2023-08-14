@@ -1,10 +1,12 @@
 package com.devseok.gas.ui.home.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.devseok.gas.R
 import com.devseok.gas.data.model.AroundAll
 import com.devseok.gas.databinding.ItemHomeBinding
 import com.devseok.gas.ui.DetailActivity
@@ -16,12 +18,12 @@ import okhttp3.internal.format
  * @created 2023-07-24
  * @desc
  */
-class HomeAdapter(context: Context) : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
+class HomeAdapter(activity: Activity) : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
     private var resultData: List<AroundAll.RESULT.OIL>? = null
-    lateinit var context: Context
+    lateinit var activity: Activity
     init {
-        this.context = context
+        this.activity = activity
     }
 
     fun setResultData(resultData: List<AroundAll.RESULT.OIL>?) {
@@ -37,7 +39,7 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<HomeAdapter.MyViewHol
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(context, resultData?.get(position)!!)
+        holder.bind(activity, resultData?.get(position)!!)
     }
 
     override fun getItemCount(): Int {
@@ -48,7 +50,7 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<HomeAdapter.MyViewHol
     class MyViewHolder(val binding : ItemHomeBinding): RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(context :Context, data : AroundAll.RESULT.OIL) {
+        fun bind(activity :Activity, data : AroundAll.RESULT.OIL) {
             // 상호
             binding.imgBrand.setBackgroundResource(Utils.pollConvert(data.POLL_DIV_CD))
 
@@ -74,9 +76,10 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<HomeAdapter.MyViewHol
             }
 
             binding.layout.setOnClickListener {
-                var intent = Intent(context, DetailActivity::class.java)
+                var intent = Intent(activity, DetailActivity::class.java)
                 intent.putExtra("data", data.UNI_ID)
-                context.startActivity(intent)
+                activity.startActivity(intent)
+                activity.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
             }
 
 

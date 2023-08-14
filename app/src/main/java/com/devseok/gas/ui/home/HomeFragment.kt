@@ -214,7 +214,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             }
                         }
 
-                        binding.tvAddress.text = "${address[1]} ${address[2]} ${address[3]} ${address[4]} ${address[5]}"
+                        var addressStr = ""
+                        if (address.size > 5) {
+                            addressStr = "${address[1]} ${address[2]} ${address[3]} ${address[4]} ${address[5]}"
+                        } else {
+                            addressStr = "${address[1]} ${address[2]} ${address[3]} ${address[4]}"
+                        }
+                        binding.tvAddress.text = addressStr
 
                         viewModel.getAroundAll(Utils.latitude, Utils.longitude, radiusValue.value.toString(), prodcdValue.value, sortValue.value.toString())
                     }
@@ -301,7 +307,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initAdapter() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        homeAdapter = HomeAdapter(requireContext())
+        homeAdapter = HomeAdapter(requireActivity())
         binding.recyclerView.adapter = homeAdapter
     }
 

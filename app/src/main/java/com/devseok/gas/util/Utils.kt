@@ -30,4 +30,19 @@ object Utils {
             else -> R.drawable.pole_all
         }
     }
+
+    fun pollBrandConvert(brand: String) : String {
+        return when(brand) {
+            "SKE", "SKG" -> "SK에너지"// SK
+            "GSC" -> "GS칼텍스" // GS
+            "HDO" -> "현대오일뱅크" // 현대오일뱅크
+            "SOL" -> "S-OIL" // S-OIL
+            "RTO" -> "자영알뜰" // 자영알뜰
+            "RTX" -> "고속도로알뜰" // 고속도로알뜰
+            "NHO" -> "농협알뜰" // 농협알뜰
+            "ETC" -> "자가상표" // 자가상표
+            "E1G" -> "E1" // E1
+            else -> "null"
+        }
+    }
 }

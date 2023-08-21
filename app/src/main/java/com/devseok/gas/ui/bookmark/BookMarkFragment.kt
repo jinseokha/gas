@@ -1,12 +1,17 @@
 package com.devseok.gas.ui.bookmark
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devseok.gas.R
+import com.devseok.gas.data.db.GasDatabase
 import com.devseok.gas.databinding.FragmentBookmarkBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @auth Dev Seok
@@ -14,8 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
  * @created 2023-07-23
  * @desc
  */
-
-private const val TAG = "BookMarkFragment"
 
 @AndroidEntryPoint
 class BookMarkFragment : Fragment(R.layout.fragment_bookmark) {
@@ -27,7 +30,12 @@ class BookMarkFragment : Fragment(R.layout.fragment_bookmark) {
 
         val binding = FragmentBookmarkBinding.bind(view)
 
+        val detailOILDao = GasDatabase.getDatabase(requireContext()).detailOILRepository()
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val listArticle = detailOILDao.findByAll()
+            Log.d("test", "" + listArticle)
+        }
 
     }
 }

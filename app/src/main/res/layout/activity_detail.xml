@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.DetailActivity">
 
@@ -15,4 +16,321 @@
         app:theme="@style/ToolbarColoredBackArrow"
         android:background="@color/background" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_logo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            tools:src="@drawable/pole_1"/>
+
+        <LinearLayout
+            android:id="@+id/layout_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/img_logo"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                tools:text="(주)에너지"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_poll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="S_OIL"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="053-943-9555"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="대구광역시 북구 "/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/layout_text">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/btn_scrap"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_round_shape"
+                android:textColor="@color/black"
+                android:text="전화걸기"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_scrap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/ic_round_shape"
+                android:textColor="@color/black"
+                android:text="즐겨찾기"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/btn_scrap"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/ic_round_shape"
+                android:textColor="@color/black"
+                android:text="길찾기"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_oil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/layout_btn"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_oil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="유가정보"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp">
+
+                <TableRow
+                    android:id="@+id/tb_gasoline">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#F0F7F7"
+                        android:textColor="@color/black"
+                        android:text="휘발유" />
+
+                    <TextView
+                        android:id="@+id/txt_gasoline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        tools:text="1600원" />
+
+                    <TextView
+                        android:id="@+id/txt_gasoline_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="2023-08-18" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tb_diesel">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#F0F7F7"
+                        android:textColor="@color/black"
+                        android:text="경유" />
+
+                    <TextView
+                        android:id="@+id/txt_diesel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        tools:text="1600원" />
+
+                    <TextView
+                        android:id="@+id/txt_diesel_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="2023-08-18" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tb_premiumgasoline">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#F0F7F7"
+                        android:textColor="@color/black"
+                        android:text="고급휘발유" />
+
+                    <TextView
+                        android:id="@+id/txt_premiumgasoline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        tools:text="1600원" />
+
+                    <TextView
+                        android:id="@+id/txt_premiumgasoline_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="2023-08-18" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tb_lampoil">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#F0F7F7"
+                        android:textColor="@color/black"
+                        android:text="등유" />
+
+                    <TextView
+                        android:id="@+id/txt_lampoil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        tools:text="1600원" />
+
+                    <TextView
+                        android:id="@+id/txt_lampoil_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        tools:text="2023-08-18" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tb_lpg">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#F0F7F7"
+                        android:textColor="@color/black"
+                        android:text="LPG" />
+
+                    <TextView
+                        android:id="@+id/txt_lpg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        tools:text="1600원" />
+
+                    <TextView
+                        android:id="@+id/txt_lpg_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        tools:text="2023-08-18" />
+
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_oil"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="부가서비스"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

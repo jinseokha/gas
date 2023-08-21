@@ -3,4 +3,6 @@
 
     <string name="app_home">홈</string>
     <string name="app_detail">상세정보</string>
+    <string name="app_bookmark">즐겨찾기</string>
+    <string name="app_setting">설정</string>
 </resources>

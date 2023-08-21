@@ -146,7 +146,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
 
                     homeAdapter.setResultData(it.data?.result?.oIL)
-                    homeAdapter.notifyDataSetChanged()
+                    //homeAdapter.notifyDataSetChanged()
                 }
 
                 is Resource.Error -> {

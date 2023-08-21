@@ -96,6 +96,5 @@ class HomeAdapter(activity: Activity) : RecyclerView.Adapter<HomeAdapter.MyViewH
 
             return date.substring(0,4) +"."+date.substring(4,6)+"."+date.substring(6,8)
         }
-
     }
 }

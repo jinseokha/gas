@@ -39,7 +39,6 @@ class DetailViewModel @Inject constructor(
         try {
             if (NetworkUtil.hasInternetConnection(context)) {
                 val response = gasRepository.getDetailById(id)
-                Log.d("testtest", "" + response.body()!!.result)
                 detailById.postValue(handlerDetailByIdResponse(response))
             }
         } catch (e: Exception) {

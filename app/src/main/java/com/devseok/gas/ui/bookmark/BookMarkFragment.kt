@@ -25,6 +25,9 @@ class BookMarkFragment : Fragment(R.layout.fragment_bookmark) {
 
     private val viewModel: BookMarkViewModel by viewModels()
 
+    
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
